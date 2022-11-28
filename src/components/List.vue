@@ -70,12 +70,13 @@ export default {
     handlerQty(e, item) {
       let elV = e.target.value
       if (elV < 1 || isNaN(elV)) {
-        alert('请输入非零整数')
+        alert('请输入非零整数！')
       } else if (String(elV).indexOf('.') > -1) {
         // console.log(String(elV).indexOf('.'));
-        alert('请输入非零整数!')
+        alert('请输入非零整数！')
       } else {
         item.value = elV
+        alert('更改商品数量成功！')
       }
     },
     handlerInput(e) {
