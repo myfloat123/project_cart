@@ -8,7 +8,6 @@
 
 <script>
 import axios from 'axios'
-import bus from './eventBus'
 import List from '@/components/List.vue'
 import Button from '@/components/Button.vue'
 export default {
