@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <b>Cart</b>
+    <List :cartList="cartList"/>
+    <Button @removeId="removeId" :cartList="cartList" @shareNameList="getNameList" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios'
+import bus from './eventBus'
+import List from '@/components/List.vue'
+import Button from '@/components/Button.vue'
 export default {
-  name: 'App',
+  data() {
+    return {
+      cartList: [],
+    }
+  },
+  created() {
+    this.getCartList()
+  },
+  methods: {
+    async getCartList() {
+      const {data} = await axios.get('/cart.json') 
+      this.cartList = data
+      // console.log(data)
+    },
+    removeId(id) {
+      // console.log(id);
+      this.cartList = this.cartList.filter(item => item.id !== id)
+    },
+    getNameList(val) {
+      this.cartList = val
+    }
+  },
   components: {
-    HelloWorld
+    List,
+    Button
   }
 }
 </script>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="less" scoped>
+.container {
+  margin: 20px auto;
 }
 </style>
